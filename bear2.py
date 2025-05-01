@@ -29,20 +29,20 @@ def vote(url):
         # 初始化 Chrome WebDriver
         options = webdriver.ChromeOptions()
         # 你可以取消註解下一行以在背景執行 (無頭模式)
-        # options.add_argument("--headless")
+        options.add_argument("--headless")
         driver = webdriver.Chrome(options=options)
         driver.get(url)
 
         # 等待投票按鈕出現並點擊 (等待時間增加到 20 秒)
         vote_button_xpath = "//*[@id=\"surface-panels\"]/div[1]/div/div[2]/div/div[3]/button"
-        vote_button = WebDriverWait(driver, 15).until(
+        vote_button = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, vote_button_xpath))
         )
         vote_button.click()
 
         # 等待輸入名稱的欄位出現並輸入隨機名稱 (等待時間增加到 20 秒)
         name_input_xpath = "//*[@id=\"app\"]/div[4]/div/div/div/div/form/div[1]/div/input"
-        name_input = WebDriverWait(driver, 24).until(
+        name_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, name_input_xpath))
         )
         random_name = random.choice(common_names)
@@ -50,11 +50,11 @@ def vote(url):
 
         # 等待送出投票的按鈕出現並點擊 (等待時間增加到 20 秒)
         submit_button_xpath = "//*[@id=\"app\"]/div[4]/div/div/div/div/form/div[2]/button"
-        submit_button = WebDriverWait(driver, 15).until(
+        submit_button = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, submit_button_xpath))
         )
         submit_button.click()
-        time.sleep(3)
+        time.sleep(2.5)
 
         print(f"已成功投票，使用的名稱是: {random_name}")
 
@@ -72,12 +72,12 @@ def vote(url):
 def parallel_vote(url, num_votes):
     for _ in range(num_votes):
         vote(url)
-        time.sleep(0.5) # 可以調整每次投票後的等待時間
+        time.sleep(0.15) # 可以調整每次投票後的等待時間
 
 if __name__ == "__main__":
     target_url = "https://padlet.com/linda903_1/113-wov7zbn9gdtsokji/wish/Xb8YaL4g9RlVayn1"
-    num_threads = 5  # 設定要同時執行的執行緒數量
-    votes_per_thread = 2000  # 每個執行緒執行的投票次數
+    num_threads = 15  # 設定要同時執行的執行緒數量
+    votes_per_thread = 25000  # 每個執行緒執行的投票次數
     threads = []
 
     for i in range(num_threads):
