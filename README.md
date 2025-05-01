@@ -32,7 +32,7 @@ Before running this script, ensure you have the following installed:
 
 2.  **Execute the Script:** Run the script using the Python interpreter:
     ```bash
-    python auto_vote.py
+    python bear2.py
     ```
 
     The script will start multiple threads, each performing the voting process. The console will output messages indicating successful votes or any errors encountered.
